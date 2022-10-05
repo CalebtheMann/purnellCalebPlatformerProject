@@ -5,9 +5,9 @@ using UnityEngine;
 public class BlobBehavior : MonoBehaviour
 {
     public float Speed = 10;
-    bool beenHit = false;
     private Rigidbody2D rb2d;
     public Vector2 Jump = new Vector2(0, 300);
+    public bool isJumping;
 
     // Start is called before the first frame update
     void Start()
@@ -15,6 +15,23 @@ public class BlobBehavior : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Ground")
+        {
+            isJumping = false;
+            Debug.Log("he do be on the ground tho");
+        }
+    }
+
+   private void OnCollisionExit2D(Collision2D collision)
+    {
+       if(collision.collider.tag == "Ground")
+        {
+            isJumping = true;
+            Debug.Log("he do be off the ground tho");
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -27,7 +44,7 @@ public class BlobBehavior : MonoBehaviour
 
         bool shouldJump = (Input.GetKeyUp(KeyCode.W));
 
-        if (shouldJump && !beenHit)
+        if (shouldJump && isJumping == false)
         {
             rb2d.velocity = Vector2.zero;
             rb2d.AddForce(Jump);
