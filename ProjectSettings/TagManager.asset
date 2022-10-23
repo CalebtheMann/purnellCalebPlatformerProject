@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Boundary
+  - Turn
+  - Weak Point
+  - Enemy
+  - Triangle Weak Point
+  - Rhombus Weak Point
+  - Bullet
+  - Exit
   layers:
   - Default
   - TransparentFX
@@ -41,6 +49,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Signs
+    uniqueID: 3272186223
     locked: 0
   - name: Gameplay
     uniqueID: 389251285
