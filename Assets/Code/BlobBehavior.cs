@@ -9,6 +9,7 @@ public class BlobBehavior : MonoBehaviour
     private Rigidbody2D rb2d;
     public Vector2 Jump = new Vector2(0, 300);
     public bool IsJumping;
+    public bool SquareUnlocked;
     bool facingRight = true;
     public Transform BulletSpawnLocation;
     public AudioClip Movement;
@@ -97,7 +98,7 @@ public class BlobBehavior : MonoBehaviour
         newPosition.x += xMove * Speed * Time.deltaTime;
         transform.position = newPosition;
 
-        bool shouldJump = (Input.GetKeyUp(KeyCode.W));
+        bool shouldJump = (Input.GetKeyDown(KeyCode.W));
 
         if (shouldJump && IsJumping == false)
         {
@@ -134,7 +135,7 @@ public class BlobBehavior : MonoBehaviour
             CurrentShape = Shapes.Blob;
         }
 
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetKeyDown(KeyCode.J) && SquareUnlocked == true)
         {
             SpriteRenderer.sprite = Square;
             Collider.size = SquareSize;
@@ -188,6 +189,12 @@ public class BlobBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Exit")
         {
             Debug.Log("ggs you made it");
+        }
+
+        if (collision.gameObject.tag == "SquarePowerUp")
+        {
+            SquareUnlocked = true;
+            Destroy(collision.gameObject);
         }
     }
     public void RestartGame()

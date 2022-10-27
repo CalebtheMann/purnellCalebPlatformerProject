@@ -13,6 +13,7 @@ TagManager:
   - Rhombus Weak Point
   - Bullet
   - Exit
+  - SquarePowerUp
   layers:
   - Default
   - TransparentFX

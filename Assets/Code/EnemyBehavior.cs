@@ -16,11 +16,11 @@ public class EnemyBehavior : MonoBehaviour
         // if move right bool is true mean he will move to the right
         if(MoveRight)
         {
-            transform.Translate(2 * Time.deltaTime * Speed, 0, 0);
+            transform.position = new Vector2(transform.position.x + (Time.deltaTime * Speed), transform.position.y);
         }
         else
         {
-            transform.Translate(-2 * Time.deltaTime * Speed, 0, 0);
+            transform.position = new Vector2(transform.position.x + (Time.deltaTime * -Speed), transform.position.y);
         }
     }
     private void OnTriggerEnter2D(Collider2D trig)
@@ -39,6 +39,7 @@ public class EnemyBehavior : MonoBehaviour
             }
         }
     }
+
     void Flip()
     {
         Vector3 currentScale = gameObject.transform.localScale;
