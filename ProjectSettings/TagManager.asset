@@ -14,6 +14,12 @@ TagManager:
   - Bullet
   - Exit
   - SquarePowerUp
+  - TrianglePowerUp
+  - RhombusPowerUp
+  - Spikes
+  - Tutorial
+  - Falling
+  - VictoryPlatform
   layers:
   - Default
   - TransparentFX
@@ -23,7 +29,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Platforms
   - 
   - 
   - 

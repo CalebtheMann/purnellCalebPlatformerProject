@@ -7,13 +7,17 @@ public class BlobBehavior : MonoBehaviour
 {
     public float Speed = 10;
     private Rigidbody2D rb2d;
+    private BoxCollider2D boxCollider2d;
     public Vector2 Jump = new Vector2(0, 300);
-    public bool IsJumping;
+    // public bool IsJumping;
     public bool SquareUnlocked;
+    public bool TriangleUnlocked;
+    public bool RhombusUnlocked;
     bool facingRight = true;
     public Transform BulletSpawnLocation;
     public AudioClip Movement;
     public SpriteRenderer SpriteRenderer;
+    public BoxCollider2D BlobCollider;
     public Sprite Blob;
     public Sprite BlobPuddle;
     public Sprite Square;
@@ -26,6 +30,13 @@ public class BlobBehavior : MonoBehaviour
     public Vector2 SquareSize;
     public Vector2 TriangleSize;
     public Vector2 RhombusSize;
+    public AudioClip FallingDeath;
+    public AudioClip JumpSound;
+    public AudioClip ShapeUp;
+    public AudioClip Victory;
+    public AudioClip TriangleAttackSound;
+    [SerializeField] private LayerMask platformLayerMask;
+
     public enum Shapes
     {
         Blob,
@@ -46,29 +57,46 @@ public class BlobBehavior : MonoBehaviour
         SpriteRenderer = GetComponent<SpriteRenderer>();
         SpriteRenderer.sprite = Blob;
         Jump = new Vector2(0, 500);
+        boxCollider2d = transform.GetComponent<BoxCollider2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Ground")
+       /* if (collision.collider.tag == "Ground")
         {
             IsJumping = false;
         }
-
+       */
         if (collision.collider.tag == "Enemy")
         {
             RestartGame();
         }
 
-        if (collision.collider.tag == "Bullet")
+        if (collision.collider.tag == "Spikes")
+        {
+            RestartGame();
+        }
+
+        if (collision.collider.tag == "Tutorial")
+        {
+            Tutorial();
+        }
+
+        if (collision.collider.tag == "VictoryPlatform")
+        {
+            AudioSource.PlayClipAtPoint(Victory, Camera.main.transform.position, 2f);
+        }
+
+        /* if (collision.collider.tag == "Bullet")
         {
             IsJumping = false;
         }
+        */
     }
-
+     
     private void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Ground")
+        /* if (collision.collider.tag == "Ground")
         {
             IsJumping = true;
         }
@@ -77,6 +105,7 @@ public class BlobBehavior : MonoBehaviour
         {
             IsJumping = true;
         }
+        */
     }
     // Update is called once per frame
     void Update()
@@ -100,11 +129,12 @@ public class BlobBehavior : MonoBehaviour
 
         bool shouldJump = (Input.GetKeyDown(KeyCode.W));
 
-        if (shouldJump && IsJumping == false)
+        if (shouldJump && isGrounded())
         {
             rb2d.velocity = Vector2.zero;
             rb2d.AddForce(Jump);
-        }
+            AudioSource.PlayClipAtPoint(JumpSound, Camera.main.transform.position, 1f);
+        } 
 
         if (CurrentShape == Shapes.Blob || CurrentShape == Shapes.BlobPuddle)
         {
@@ -144,7 +174,7 @@ public class BlobBehavior : MonoBehaviour
             CurrentShape = Shapes.Square;
         }
         
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K) && TriangleUnlocked == true)
         {
             SpriteRenderer.sprite = Triangle;
             Collider.size = TriangleSize;
@@ -153,7 +183,7 @@ public class BlobBehavior : MonoBehaviour
             CurrentShape = Shapes.Triangle;
         }
 
-        if (Input.GetKeyDown(KeyCode.L))
+        if (Input.GetKeyDown(KeyCode.L) && RhombusUnlocked == true)
         {
             SpriteRenderer.sprite = Rhombus;
             Collider.size = RhombusSize;
@@ -167,6 +197,7 @@ public class BlobBehavior : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 TriangleAttack Bullet = Instantiate(TriangleAttack, BulletSpawnLocation.position, Quaternion.identity).GetComponent<TriangleAttack>();
+                AudioSource.PlayClipAtPoint(TriangleAttackSound, Camera.main.transform.position, 1f);
                 if (!facingRight)
                 {
                     Bullet.BulletSpeed.x *= -1;
@@ -176,6 +207,21 @@ public class BlobBehavior : MonoBehaviour
         
     }
 
+    private bool isGrounded()
+    {
+        float extraHeightText = 0.3f;
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, extraHeightText, platformLayerMask);
+        Color rayColor;
+        if (raycastHit.collider != null)
+        {
+            rayColor = Color.blue;
+        }
+        else
+        {
+            rayColor = Color.red;
+        }
+        return raycastHit.collider != null;
+    }
     void Flip()
     {
         Vector3 currentScale = gameObject.transform.localScale;
@@ -189,16 +235,47 @@ public class BlobBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Exit")
         {
             Debug.Log("ggs you made it");
+            ExitGame();
+        }
+
+        if (collision.gameObject.tag == "Falling")
+        {
+            AudioSource.PlayClipAtPoint(FallingDeath, Camera.main.transform.position, 2f);
         }
 
         if (collision.gameObject.tag == "SquarePowerUp")
         {
             SquareUnlocked = true;
             Destroy(collision.gameObject);
+            AudioSource.PlayClipAtPoint(ShapeUp, Camera.main.transform.position, 1f);
+        }
+
+        if (collision.gameObject.tag == "TrianglePowerUp")
+        {
+            TriangleUnlocked = true;
+            Destroy(collision.gameObject);
+            AudioSource.PlayClipAtPoint(ShapeUp, Camera.main.transform.position, 1f);
+        }
+
+        if (collision.gameObject.tag == "RhombusPowerUp")
+        {
+            RhombusUnlocked = true;
+            Destroy(collision.gameObject);
+            AudioSource.PlayClipAtPoint(ShapeUp, Camera.main.transform.position, 1f);
         }
     }
     public void RestartGame()
     {
+        SceneManager.LoadScene(2);
+    }
+    
+    public void ExitGame()
+    {
         SceneManager.LoadScene(0);
+    }
+
+    public void Tutorial()
+    {
+        SceneManager.LoadScene(1);
     }
 }

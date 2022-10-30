@@ -7,6 +7,9 @@ public class EnemyStomp : MonoBehaviour
     private Rigidbody2D rb2d;
     public Vector2 Jump = new Vector2(0, 300);
     private BlobBehavior blob;
+    public AudioClip SquareKill;
+    public AudioClip TriangleKill;
+    public AudioClip RhombusKill;
 
     // Start is called before the first frame update
 
@@ -21,6 +24,7 @@ public class EnemyStomp : MonoBehaviour
         {
             rb2d.velocity = Vector2.zero;
             rb2d.AddForce(Jump);
+            AudioSource.PlayClipAtPoint(SquareKill, Camera.main.transform.position, 1f);
             Destroy(collision.transform.parent.gameObject);
         }
         
@@ -30,6 +34,7 @@ public class EnemyStomp : MonoBehaviour
             {
                 rb2d.velocity = Vector2.zero;
                 rb2d.AddForce(Jump);
+                AudioSource.PlayClipAtPoint(TriangleKill, Camera.main.transform.position, 1f);
                 Destroy(collision.transform.parent.gameObject);
             }
         }
@@ -40,6 +45,7 @@ public class EnemyStomp : MonoBehaviour
             {
                 rb2d.velocity = Vector2.zero;
                 rb2d.AddForce(Jump);
+                AudioSource.PlayClipAtPoint(RhombusKill, Camera.main.transform.position, 1f);
             }
         }
     }

@@ -2,18 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMovement : MonoBehaviour
+public class ThreeEnemyMovement : MonoBehaviour
 {
     public float Min;
     public float Max;
     public float Speed;
-    bool facingRight = true;
+    bool facingRight = false;
+
     // Start is called before the first frame update
     void Start()
     {
         Min = transform.position.x;
-        Max = transform.position.x + 9;
-        facingRight = true;
+        Max = transform.position.x + 3;
+        facingRight = false;
     }
 
     // Update is called once per frame
@@ -23,7 +24,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (Min + 0.04f >= transform.position.x && !facingRight)
         {
-            Flip(); 
+            Flip();
         }
 
         if (Max - 0.04f <= transform.position.x && facingRight)
