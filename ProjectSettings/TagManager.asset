@@ -20,6 +20,7 @@ TagManager:
   - Tutorial
   - Falling
   - VictoryPlatform
+  - Goal
   layers:
   - Default
   - TransparentFX

@@ -23,6 +23,7 @@ public class BlobBehavior : MonoBehaviour
     public Sprite Square;
     public Sprite Triangle;
     public GameObject TriangleAttack;
+    public GameObject LoseScreen;
     public Sprite Rhombus;
     public BoxCollider2D Collider;
     public Vector2 BlobSize;
@@ -36,6 +37,7 @@ public class BlobBehavior : MonoBehaviour
     public AudioClip Victory;
     public AudioClip TriangleAttackSound;
     public AudioClip PuddleSound;
+    public AudioClip BlobKill;
     [SerializeField] private LayerMask platformLayerMask;
 
     public enum Shapes
@@ -70,22 +72,27 @@ public class BlobBehavior : MonoBehaviour
        */
         if (collision.collider.tag == "Enemy")
         {
+            Destroy(gameObject);
+            AudioSource.PlayClipAtPoint(BlobKill, transform.position, 1f);
             RestartGame();
         }
 
         if (collision.collider.tag == "Spikes")
         {
+            Destroy(gameObject);
+            AudioSource.PlayClipAtPoint(BlobKill, transform.position, 1f);
             RestartGame();
         }
 
         if (collision.collider.tag == "Tutorial")
         {
+            Destroy(gameObject);
             Tutorial();
         }
 
         if (collision.collider.tag == "VictoryPlatform")
         {
-            AudioSource.PlayClipAtPoint(Victory, Camera.main.transform.position, 2f);
+            AudioSource.PlayClipAtPoint(Victory, transform.position, 2f);
         }
 
         /* if (collision.collider.tag == "Bullet")
@@ -134,7 +141,7 @@ public class BlobBehavior : MonoBehaviour
         {
             rb2d.velocity = Vector2.zero;
             rb2d.AddForce(Jump);
-            AudioSource.PlayClipAtPoint(JumpSound, Camera.main.transform.position, 1f);
+            AudioSource.PlayClipAtPoint(JumpSound, transform.position, 1f);
         } 
 
         if (CurrentShape == Shapes.Blob || CurrentShape == Shapes.BlobPuddle)
@@ -157,7 +164,7 @@ public class BlobBehavior : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
-                AudioSource.PlayClipAtPoint(PuddleSound, Camera.main.transform.position, 1f);
+                AudioSource.PlayClipAtPoint(PuddleSound, transform.position, 1f);
             }
         }
 
@@ -202,7 +209,7 @@ public class BlobBehavior : MonoBehaviour
             if (Input.GetKeyUp(KeyCode.Space))
             {
                 TriangleAttack Bullet = Instantiate(TriangleAttack, BulletSpawnLocation.position, Quaternion.identity).GetComponent<TriangleAttack>();
-                AudioSource.PlayClipAtPoint(TriangleAttackSound, Camera.main.transform.position, 1f);
+                AudioSource.PlayClipAtPoint(TriangleAttackSound, transform.position, 1f);
                 if (!facingRight)
                 {
                     Bullet.BulletSpeed.x *= -1;
@@ -215,7 +222,7 @@ public class BlobBehavior : MonoBehaviour
     private bool isGrounded()
     {
         float extraHeightText = 0.3f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, extraHeightText, platformLayerMask);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, new Vector2(1, 1), 0f, Vector2.down, extraHeightText, platformLayerMask);
         Color rayColor;
         if (raycastHit.collider != null)
         {
@@ -243,9 +250,14 @@ public class BlobBehavior : MonoBehaviour
             ExitGame();
         }
 
+        if (collision.gameObject.tag == "Goal")
+        {
+            Goal();
+        }
+
         if (collision.gameObject.tag == "Falling")
         {
-            AudioSource.PlayClipAtPoint(FallingDeath, Camera.main.transform.position, 2f);
+            AudioSource.PlayClipAtPoint(FallingDeath, transform.position, 2f);
             Speed = 0;
         }
 
@@ -253,26 +265,26 @@ public class BlobBehavior : MonoBehaviour
         {
             SquareUnlocked = true;
             Destroy(collision.gameObject);
-            AudioSource.PlayClipAtPoint(ShapeUp, Camera.main.transform.position, 1f);
+            AudioSource.PlayClipAtPoint(ShapeUp, transform.position, 1f);
         }
 
         if (collision.gameObject.tag == "TrianglePowerUp")
         {
             TriangleUnlocked = true;
             Destroy(collision.gameObject);
-            AudioSource.PlayClipAtPoint(ShapeUp, Camera.main.transform.position, 1f);
+            AudioSource.PlayClipAtPoint(ShapeUp, transform.position, 1f);
         }
 
         if (collision.gameObject.tag == "RhombusPowerUp")
         {
             RhombusUnlocked = true;
             Destroy(collision.gameObject);
-            AudioSource.PlayClipAtPoint(ShapeUp, Camera.main.transform.position, 1f);
+            AudioSource.PlayClipAtPoint(ShapeUp, transform.position, 1f);
         }
     }
     public void RestartGame()
     {
-        SceneManager.LoadScene(2);
+        LoseScreen.SetActive(true);
     }
     
     public void ExitGame()
@@ -280,8 +292,12 @@ public class BlobBehavior : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void Goal()
+    {
+        SceneManager.LoadScene(2);
+    }
     public void Tutorial()
     {
-        SceneManager.LoadScene(1);
+        LoseScreen.SetActive(true);
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 public class TriangleAttack : MonoBehaviour
 {
     public Vector2 BulletSpeed;
+    public AudioClip TriangleKill;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,8 +28,15 @@ public class TriangleAttack : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "Tutorial")
+        {
+            AudioSource.PlayClipAtPoint(TriangleKill, transform.position, 1f);
+            Destroy(gameObject);
+        }
+        
         if (collision.gameObject.tag == "Enemy")
         {
+            AudioSource.PlayClipAtPoint(TriangleKill, transform.position, 1f);
             Destroy(gameObject);
         }
     }

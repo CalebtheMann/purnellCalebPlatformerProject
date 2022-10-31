@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BulletSpeed: {x: 8, y: 0}
+  TriangleKill: {fileID: 8300000, guid: 806c5f62a86f0ed48ab7ce0b5e5106c7, type: 3}
 --- !u!50 &6058092564338637645
 Rigidbody2D:
   serializedVersion: 4

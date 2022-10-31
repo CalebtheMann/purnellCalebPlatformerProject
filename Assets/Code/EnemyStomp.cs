@@ -24,7 +24,7 @@ public class EnemyStomp : MonoBehaviour
         {
             rb2d.velocity = Vector2.zero;
             rb2d.AddForce(Jump);
-            AudioSource.PlayClipAtPoint(SquareKill, Camera.main.transform.position, 1f);
+            AudioSource.PlayClipAtPoint(SquareKill, transform.position, 1f);
             Destroy(collision.transform.parent.gameObject);
         }
         
@@ -34,7 +34,7 @@ public class EnemyStomp : MonoBehaviour
             {
                 rb2d.velocity = Vector2.zero;
                 rb2d.AddForce(Jump);
-                AudioSource.PlayClipAtPoint(TriangleKill, Camera.main.transform.position, 1f);
+                AudioSource.PlayClipAtPoint(TriangleKill, transform.position, 1f);
                 Destroy(collision.transform.parent.gameObject);
             }
         }
@@ -45,7 +45,7 @@ public class EnemyStomp : MonoBehaviour
             {
                 rb2d.velocity = Vector2.zero;
                 rb2d.AddForce(Jump);
-                AudioSource.PlayClipAtPoint(RhombusKill, Camera.main.transform.position, 1f);
+                AudioSource.PlayClipAtPoint(RhombusKill, transform.position, 1f);
             }
         }
     }
