@@ -2617,6 +2617,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: c39a3c6277a4da74c8b35f466d847405, type: 3}
     - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
+      propertyPath: PuddleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5e11401b429504949987e4ed157c6f3c, type: 3}
+    - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: FallingDeath
       value: 
       objectReference: {fileID: 8300000, guid: 32f9d64d666fb754fb7c2c1647c2849b, type: 3}

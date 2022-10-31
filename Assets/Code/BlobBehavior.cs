@@ -35,6 +35,7 @@ public class BlobBehavior : MonoBehaviour
     public AudioClip ShapeUp;
     public AudioClip Victory;
     public AudioClip TriangleAttackSound;
+    public AudioClip PuddleSound;
     [SerializeField] private LayerMask platformLayerMask;
 
     public enum Shapes
@@ -154,6 +155,10 @@ public class BlobBehavior : MonoBehaviour
                 Jump = new Vector2(0, 350);
                 CurrentShape = Shapes.BlobPuddle;
             }
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                AudioSource.PlayClipAtPoint(PuddleSound, Camera.main.transform.position, 1f);
+            }
         }
 
         if (Input.GetKeyDown(KeyCode.H))
@@ -241,6 +246,7 @@ public class BlobBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Falling")
         {
             AudioSource.PlayClipAtPoint(FallingDeath, Camera.main.transform.position, 2f);
+            Speed = 0;
         }
 
         if (collision.gameObject.tag == "SquarePowerUp")

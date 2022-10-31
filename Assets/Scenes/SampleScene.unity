@@ -2302,7 +2302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1763985253}
   m_LocalRotation: {x: -0, y: -0, z: -0.7076308, w: 0.7065824}
-  m_LocalPosition: {x: 35, y: -57.9, z: 0.1452347}
+  m_LocalPosition: {x: 35, y: -80.2, z: 0.1452347}
   m_LocalScale: {x: 2.1667, y: 104.10702, z: 2.1667}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2931,7 +2931,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5336496257573241520, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.4
+      value: -3.04
       objectReference: {fileID: 0}
     - target: {fileID: 5336496257573241520, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2989,6 +2989,10 @@ PrefabInstance:
       propertyPath: JumpSound
       value: 
       objectReference: {fileID: 8300000, guid: c39a3c6277a4da74c8b35f466d847405, type: 3}
+    - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
+      propertyPath: PuddleSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 5e11401b429504949987e4ed157c6f3c, type: 3}
     - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: BlobCollider
       value: 

@@ -15,6 +15,10 @@ public class MainMenuController : MonoBehaviour
         Application.targetFrameRate = 60;
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
     // Update is called once per frame
     void Update()
     {
