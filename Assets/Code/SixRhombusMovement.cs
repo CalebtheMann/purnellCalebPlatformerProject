@@ -2,19 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SixEnemyMovement : MonoBehaviour
+public class SixRhombusMovement : MonoBehaviour
 {
     public float Min;
     public float Max;
     public float Speed;
     bool facingRight = false;
-
     // Start is called before the first frame update
     void Start()
     {
         Min = transform.position.x;
         Max = transform.position.x + 6;
-        facingRight = false;
+        facingRight = true;
     }
 
     // Update is called once per frame
@@ -41,6 +40,7 @@ public class SixEnemyMovement : MonoBehaviour
 
         facingRight = !facingRight;
     }
+
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Bullet")

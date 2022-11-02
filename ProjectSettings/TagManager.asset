@@ -21,6 +21,11 @@ TagManager:
   - Falling
   - VictoryPlatform
   - Goal
+  - Spawn
+  - ParaSpawn
+  - FinalGoal
+  - LevelTwo
+  - LevelThree
   layers:
   - Default
   - TransparentFX

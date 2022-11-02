@@ -15,6 +15,8 @@ public class BlobBehavior : MonoBehaviour
     public bool RhombusUnlocked;
     bool facingRight = true;
     public Transform BulletSpawnLocation;
+    public Transform SpawnLocation;
+    public Transform ParaSpawnLocation;
     public AudioClip Movement;
     public SpriteRenderer SpriteRenderer;
     public BoxCollider2D BlobCollider;
@@ -24,6 +26,9 @@ public class BlobBehavior : MonoBehaviour
     public Sprite Triangle;
     public GameObject TriangleAttack;
     public GameObject LoseScreen;
+    public GameObject WinScreen;
+    public GameObject RhombusHorde;
+    public GameObject ParaSquares;
     public Sprite Rhombus;
     public BoxCollider2D Collider;
     public Vector2 BlobSize;
@@ -244,10 +249,9 @@ public class BlobBehavior : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Exit")
+        if (collision.gameObject.tag == "LevelTwo")
         {
-            Debug.Log("ggs you made it");
-            ExitGame();
+            LevelTwo();
         }
 
         if (collision.gameObject.tag == "Goal")
@@ -255,9 +259,19 @@ public class BlobBehavior : MonoBehaviour
             Goal();
         }
 
+        if (collision.gameObject.tag == "LevelThree")
+        {
+            LevelThree();
+        }
+
+        if(collision.gameObject.tag == "FinalGoal")
+        {
+            FinalGoal();
+        }
+
         if (collision.gameObject.tag == "Falling")
         {
-            AudioSource.PlayClipAtPoint(FallingDeath, transform.position, 2f);
+            AudioSource.PlayClipAtPoint(FallingDeath, Camera.main.transform.position, 3f);
             Speed = 0;
         }
 
@@ -281,6 +295,34 @@ public class BlobBehavior : MonoBehaviour
             Destroy(collision.gameObject);
             AudioSource.PlayClipAtPoint(ShapeUp, transform.position, 1f);
         }
+
+        if (collision.gameObject.tag == "Spawn")
+        {
+            Vector2 RhombusHordePos = new Vector2(SpawnLocation.position.x, SpawnLocation.position.y);
+
+            for (int i = 0; i < 1; i++)
+            {
+                for (int j = 0; j < 6; j++)
+                {
+                    RhombusHordePos.x = SpawnLocation.position.x + ((j + 0.5f) * 3f);
+                    Instantiate(RhombusHorde, RhombusHordePos, Quaternion.identity);
+                }
+            }
+        }
+
+        if (collision.gameObject.tag == "ParaSpawn")
+        {
+            Vector2 ParaSquarePos = new Vector2(ParaSpawnLocation.position.x, ParaSpawnLocation.position.y);
+
+            for (int i = 0; i < 1; i++)
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    ParaSquarePos.x = ParaSpawnLocation.position.x + ((j + 0.5f) * 2f);
+                    Instantiate(ParaSquares, ParaSquarePos, Quaternion.identity);
+                }
+            }
+        }
     }
     public void RestartGame()
     {
@@ -299,5 +341,20 @@ public class BlobBehavior : MonoBehaviour
     public void Tutorial()
     {
         LoseScreen.SetActive(true);
+    }
+
+    public void LevelTwo()
+    {
+        SceneManager.LoadScene(3);
+    }
+
+    public void LevelThree()
+    {
+        SceneManager.LoadScene(4);
+    }
+
+    public void FinalGoal()
+    {
+        WinScreen.SetActive(true);
     }
 }

@@ -22,7 +22,7 @@ public class MainMenuController : MonoBehaviour
 
     public void RetryGame()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(1);
     }
 
     public void MainMenu()
@@ -30,9 +30,14 @@ public class MainMenuController : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void Tutorial()
+    public void RetryGame3()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
+    }
+
+    public void RetryGame2()
+    {
+        SceneManager.LoadScene(2);
     }
     // Update is called once per frame
     void Update()
