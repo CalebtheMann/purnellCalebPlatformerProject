@@ -526,7 +526,7 @@ MonoBehaviour:
   KingCubeLocation2: {x: -8.73, y: 2.615, z: 0}
   MinionSpawn: {fileID: 1427410602}
   SquareHorde: {fileID: 8706925761111921590, guid: 4ca98a802f688cf499088b9b7c93bcc4, type: 3}
-  KingCubePortrait: {fileID: 0}
+  KingCubePortrait: {fileID: 627621247}
 --- !u!1001 &558719771
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -592,6 +592,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ceb36a19a610b0a41b1e5b7957a7d329, type: 3}
+--- !u!1 &627621247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1291591496767243378, guid: 97d46f0940081a5419557e816f1d4e4f, type: 3}
+  m_PrefabInstance: {fileID: 1646303223}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &647120261
 PrefabInstance:
   m_ObjectHideFlags: 0
