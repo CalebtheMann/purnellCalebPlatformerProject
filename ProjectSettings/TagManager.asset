@@ -26,6 +26,12 @@ TagManager:
   - FinalGoal
   - LevelTwo
   - LevelThree
+  - EnemyCheckPoint1
+  - SpikeCheckPoint1
+  - CheckPoint
+  - KingCubeWeakPoint
+  - KingCubeLocation
+  - KingCubeLocation2
   layers:
   - Default
   - TransparentFX

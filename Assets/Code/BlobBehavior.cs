@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class BlobBehavior : MonoBehaviour
 {
+    public int Lives = 5;
     public float Speed = 10;
     private Rigidbody2D rb2d;
     private BoxCollider2D boxCollider2d;
@@ -17,6 +18,7 @@ public class BlobBehavior : MonoBehaviour
     public Transform BulletSpawnLocation;
     public Transform SpawnLocation;
     public Transform ParaSpawnLocation;
+    public Transform KingCubeLocation;
     public AudioClip Movement;
     public SpriteRenderer SpriteRenderer;
     public BoxCollider2D BlobCollider;
@@ -29,6 +31,7 @@ public class BlobBehavior : MonoBehaviour
     public GameObject WinScreen;
     public GameObject RhombusHorde;
     public GameObject ParaSquares;
+    public GameObject KingCube;
     public Sprite Rhombus;
     public BoxCollider2D Collider;
     public Vector2 BlobSize;
@@ -36,6 +39,7 @@ public class BlobBehavior : MonoBehaviour
     public Vector2 SquareSize;
     public Vector2 TriangleSize;
     public Vector2 RhombusSize;
+    public Vector3 CheckPoint;
     public AudioClip FallingDeath;
     public AudioClip JumpSound;
     public AudioClip ShapeUp;
@@ -43,6 +47,8 @@ public class BlobBehavior : MonoBehaviour
     public AudioClip TriangleAttackSound;
     public AudioClip PuddleSound;
     public AudioClip BlobKill;
+    public AudioClip CheckPointSound;
+    public AudioClip MorphSound;
     [SerializeField] private LayerMask platformLayerMask;
 
     public enum Shapes
@@ -87,6 +93,28 @@ public class BlobBehavior : MonoBehaviour
             Destroy(gameObject);
             AudioSource.PlayClipAtPoint(BlobKill, transform.position, 1f);
             RestartGame();
+        }
+
+        if (collision.collider.tag == "EnemyCheckPoint1")
+        {
+            transform.position = CheckPoint;
+            AudioSource.PlayClipAtPoint(BlobKill, transform.position, 1f);
+            SpriteRenderer.sprite = Blob;
+            Collider.size = BlobSize;
+            Speed = 6.0f;
+            Jump = new Vector2(0, 500);
+            CurrentShape = Shapes.Blob;
+        }
+
+        if (collision.collider.tag == "SpikeCheckPoint1")
+        {
+            transform.position = CheckPoint;
+            AudioSource.PlayClipAtPoint(BlobKill, transform.position, 1f);
+            SpriteRenderer.sprite = Blob;
+            Collider.size = BlobSize;
+            Speed = 6.0f;
+            Jump = new Vector2(0, 500);
+            CurrentShape = Shapes.Blob;
         }
 
         if (collision.collider.tag == "Tutorial")
@@ -180,6 +208,7 @@ public class BlobBehavior : MonoBehaviour
             Speed = 6.0f;
             Jump = new Vector2(0, 500);
             CurrentShape = Shapes.Blob;
+            AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
         }
 
         if (Input.GetKeyDown(KeyCode.J) && SquareUnlocked == true)
@@ -189,6 +218,7 @@ public class BlobBehavior : MonoBehaviour
             Speed = 6.0f;
             Jump = new Vector2(0, 350);
             CurrentShape = Shapes.Square;
+            AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
         }
         
         if (Input.GetKeyDown(KeyCode.K) && TriangleUnlocked == true)
@@ -198,6 +228,7 @@ public class BlobBehavior : MonoBehaviour
             Speed = 3.0f;
             Jump = new Vector2(0, 200);
             CurrentShape = Shapes.Triangle;
+            AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
         }
 
         if (Input.GetKeyDown(KeyCode.L) && RhombusUnlocked == true)
@@ -207,6 +238,7 @@ public class BlobBehavior : MonoBehaviour
             Speed = 8.5f;
             Jump = new Vector2(0, 350);
             CurrentShape = Shapes.Rhombus;
+            AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
         }
 
         if (CurrentShape == Shapes.Triangle)
@@ -275,6 +307,11 @@ public class BlobBehavior : MonoBehaviour
             Speed = 0;
         }
 
+        if (collision.gameObject.tag == "CheckPoint")
+        {
+            AudioSource.PlayClipAtPoint(CheckPointSound, transform.position, 2f);
+        }
+
         if (collision.gameObject.tag == "SquarePowerUp")
         {
             SquareUnlocked = true;
@@ -329,6 +366,12 @@ public class BlobBehavior : MonoBehaviour
         LoseScreen.SetActive(true);
     }
     
+    public void BossDamage()
+    {
+        Lives -= 1;
+        //transform.position
+    }
+
     public void ExitGame()
     {
         SceneManager.LoadScene(0);

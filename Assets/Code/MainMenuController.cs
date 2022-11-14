@@ -39,6 +39,11 @@ public class MainMenuController : MonoBehaviour
     {
         SceneManager.LoadScene(2);
     }
+
+    public void RetryGame4()
+    {
+        SceneManager.LoadScene(4);
+    }
     // Update is called once per frame
     void Update()
     {

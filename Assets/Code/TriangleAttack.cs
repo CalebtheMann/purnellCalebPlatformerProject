@@ -39,6 +39,12 @@ public class TriangleAttack : MonoBehaviour
             AudioSource.PlayClipAtPoint(TriangleKill, transform.position, 1f);
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.tag == "EnemyCheckPoint1")
+        {
+            AudioSource.PlayClipAtPoint(TriangleKill, transform.position, 1f);
+            Destroy(gameObject);
+        }
     }
 
     IEnumerator waiter()

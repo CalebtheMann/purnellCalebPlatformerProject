@@ -10,6 +10,7 @@ public class EnemyStomp : MonoBehaviour
     public AudioClip SquareKill;
     public AudioClip TriangleKill;
     public AudioClip RhombusKill;
+    public KingCubeCode KingCube;
 
     // Start is called before the first frame update
 
@@ -46,6 +47,17 @@ public class EnemyStomp : MonoBehaviour
                 rb2d.velocity = Vector2.zero;
                 rb2d.AddForce(Jump);
                 AudioSource.PlayClipAtPoint(RhombusKill, transform.position, 1f);
+            }
+        }
+
+        if (blob.CurrentShape == BlobBehavior.Shapes.Square)
+        {
+            if (collision.gameObject.tag == "KingCubeWeakPoint")
+            {
+                rb2d.velocity = Vector2.zero;
+                rb2d.AddForce(Jump);
+                AudioSource.PlayClipAtPoint(TriangleKill, transform.position, 1f);
+                KingCube.TakeDamage();
             }
         }
     }

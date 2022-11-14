@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
     public float Speed;
-    public bool MoveRight;
+    public static bool MoveRight;
     bool facingRight = true;
 
     // Start is called before the first frame update
@@ -51,6 +51,11 @@ public class EnemyBehavior : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Bullet")
+        {
+            Destroy(gameObject);
+        }
+
+        if (collision.gameObject.tag == "SpikeCheckPoint1")
         {
             Destroy(gameObject);
         }

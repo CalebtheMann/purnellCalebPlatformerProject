@@ -128,22 +128,28 @@ MonoBehaviour:
   TriangleUnlocked: 0
   RhombusUnlocked: 0
   BulletSpawnLocation: {fileID: 5336496258048506424}
+  SpawnLocation: {fileID: 0}
+  ParaSpawnLocation: {fileID: 0}
   Movement: {fileID: 8300000, guid: 9a51db40082dc44478ac6003e4fe8936, type: 3}
   SpriteRenderer: {fileID: 0}
   BlobCollider: {fileID: 0}
   Blob: {fileID: 21300000, guid: b857941e994845b49858c788df3f0822, type: 3}
   BlobPuddle: {fileID: 21300000, guid: 86353712c8a8b3f4489b018a317b19df, type: 3}
-  Square: {fileID: 21300000, guid: 113746f8c288f11408323862ee41d02c, type: 3}
+  Square: {fileID: 21300000, guid: 3b85f5bd4647bf645a10cc621cc294ea, type: 3}
   Triangle: {fileID: 21300000, guid: dc5bb861fe56b0e49804a0bf8dd0840d, type: 3}
   TriangleAttack: {fileID: 844406720415069546, guid: 2a6eb0a5f03593e41982e52838e43caf, type: 3}
   LoseScreen: {fileID: 0}
+  WinScreen: {fileID: 0}
+  RhombusHorde: {fileID: 0}
+  ParaSquares: {fileID: 0}
   Rhombus: {fileID: 21300000, guid: f17c84c4fc66bf549b17f481150b0a17, type: 3}
   Collider: {fileID: 5336496257573241522}
   BlobSize: {x: 0, y: 0}
   PuddleSize: {x: 6.296843, y: 1.16}
-  SquareSize: {x: 2.5, y: 2.5}
+  SquareSize: {x: 9.6, y: 7}
   TriangleSize: {x: 3.312905, y: 3.391538}
   RhombusSize: {x: 4.151212, y: 3.138357}
+  CheckPoint: {x: 92, y: 1.78, z: 0}
   FallingDeath: {fileID: 8300000, guid: 32f9d64d666fb754fb7c2c1647c2849b, type: 3}
   JumpSound: {fileID: 8300000, guid: c39a3c6277a4da74c8b35f466d847405, type: 3}
   ShapeUp: {fileID: 8300000, guid: 7055176ec47e19744b05cc63022ec550, type: 3}
@@ -151,6 +157,8 @@ MonoBehaviour:
   TriangleAttackSound: {fileID: 8300000, guid: ec19de2d65a39a34684e07b21b364649, type: 3}
   PuddleSound: {fileID: 8300000, guid: 5e11401b429504949987e4ed157c6f3c, type: 3}
   BlobKill: {fileID: 8300000, guid: 8916ce5f21bf3584aa4e3e4875be0a89, type: 3}
+  CheckPointSound: {fileID: 8300000, guid: b997606d89bca0e40954559e98c6a757, type: 3}
+  MorphSound: {fileID: 8300000, guid: d61fe0e763651b04dacf47a6c9e05e1c, type: 3}
   platformLayerMask:
     serializedVersion: 2
     m_Bits: 256
