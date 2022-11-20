@@ -3294,11 +3294,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5336496257573241520, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5.130001
+      value: -5.92
       objectReference: {fileID: 0}
     - target: {fileID: 5336496257573241520, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.20999992
+      value: -1.4
       objectReference: {fileID: 0}
     - target: {fileID: 5336496257573241520, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3336,6 +3336,18 @@ PrefabInstance:
       propertyPath: LoseScreen
       value: 
       objectReference: {fileID: 1655166821}
+    - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
+      propertyPath: SquareUnlocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
+      propertyPath: RhombusUnlocked
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
+      propertyPath: TriangleUnlocked
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5336496257573241525, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: m_Name
       value: Blob

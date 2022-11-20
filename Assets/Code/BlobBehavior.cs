@@ -15,6 +15,11 @@ public class BlobBehavior : MonoBehaviour
     public bool TriangleUnlocked;
     public bool RhombusUnlocked;
     bool facingRight = true;
+    bool isJumping = false;
+    bool isPuddle = false;
+    bool isSquare = false;
+    bool isTriangle = false;
+    bool isRhombus = false;
     public Transform BulletSpawnLocation;
     public Transform SpawnLocation;
     public Transform ParaSpawnLocation;
@@ -37,6 +42,7 @@ public class BlobBehavior : MonoBehaviour
     public Vector2 BlobSize;
     public Vector2 PuddleSize;
     public Vector2 SquareSize;
+    public Vector2 BoxCastSize;
     public Vector2 TriangleSize;
     public Vector2 RhombusSize;
     public Vector3 CheckPoint;
@@ -49,6 +55,9 @@ public class BlobBehavior : MonoBehaviour
     public AudioClip BlobKill;
     public AudioClip CheckPointSound;
     public AudioClip MorphSound;
+    public AudioClip ParaSquareSpawn;
+    public AudioClip RhombusTrigger;
+    public Animator MyAnimator;
     [SerializeField] private LayerMask platformLayerMask;
 
     public enum Shapes
@@ -104,6 +113,9 @@ public class BlobBehavior : MonoBehaviour
             Speed = 6.0f;
             Jump = new Vector2(0, 500);
             CurrentShape = Shapes.Blob;
+            isSquare = false;
+            isTriangle = false;
+            isRhombus = false;
         }
 
         if (collision.collider.tag == "SpikeCheckPoint1")
@@ -125,7 +137,7 @@ public class BlobBehavior : MonoBehaviour
 
         if (collision.collider.tag == "VictoryPlatform")
         {
-            AudioSource.PlayClipAtPoint(Victory, transform.position, 2f);
+            AudioSource.PlayClipAtPoint(Victory, Camera.main.transform.position, 2f);
         }
 
         /* if (collision.collider.tag == "Bullet")
@@ -186,6 +198,7 @@ public class BlobBehavior : MonoBehaviour
                 Speed = 6.0f;
                 Jump = new Vector2(0, 500);
                 CurrentShape = Shapes.Blob;
+                isPuddle = false;
             }
             if (Input.GetKey(KeyCode.S))
             {
@@ -194,6 +207,7 @@ public class BlobBehavior : MonoBehaviour
                 Speed = 2.5f;
                 Jump = new Vector2(0, 350);
                 CurrentShape = Shapes.BlobPuddle;
+                isPuddle = true;
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -203,42 +217,74 @@ public class BlobBehavior : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.H))
         {
+            if (CurrentShape != Shapes.Blob)
+            {
+                AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
+            }
+
             SpriteRenderer.sprite = Blob;
             Collider.size = BlobSize;
+            BoxCastSize = BlobSize;
             Speed = 6.0f;
             Jump = new Vector2(0, 500);
             CurrentShape = Shapes.Blob;
-            AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
+            isSquare = false;
+            isTriangle = false;
+            isRhombus = false;
         }
 
         if (Input.GetKeyDown(KeyCode.J) && SquareUnlocked == true)
         {
+            if (CurrentShape != Shapes.Square)
+            {
+                AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
+            }
+
             SpriteRenderer.sprite = Square;
             Collider.size = SquareSize;
+            BoxCastSize = SquareSize;
             Speed = 6.0f;
             Jump = new Vector2(0, 350);
             CurrentShape = Shapes.Square;
-            AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
+            isSquare = true;
+            isTriangle = false;
+            isRhombus = false;
         }
         
         if (Input.GetKeyDown(KeyCode.K) && TriangleUnlocked == true)
         {
+            if (CurrentShape != Shapes.Triangle)
+            {
+                AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
+            }
+
             SpriteRenderer.sprite = Triangle;
             Collider.size = TriangleSize;
+            BoxCastSize = TriangleSize;
             Speed = 3.0f;
             Jump = new Vector2(0, 200);
             CurrentShape = Shapes.Triangle;
-            AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
+            isSquare = false;
+            isTriangle = true;
+            isRhombus = false;
         }
 
         if (Input.GetKeyDown(KeyCode.L) && RhombusUnlocked == true)
         {
+            if (CurrentShape != Shapes.Rhombus)
+            {
+                AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
+            }
+
             SpriteRenderer.sprite = Rhombus;
             Collider.size = RhombusSize;
+            BoxCastSize = RhombusSize;
             Speed = 8.5f;
             Jump = new Vector2(0, 350);
             CurrentShape = Shapes.Rhombus;
-            AudioSource.PlayClipAtPoint(MorphSound, transform.position, 1f);
+            isSquare = false;
+            isTriangle = false;
+            isRhombus = true;
         }
 
         if (CurrentShape == Shapes.Triangle)
@@ -253,13 +299,19 @@ public class BlobBehavior : MonoBehaviour
                 }
             }
         }
-        
+        MyAnimator.SetFloat("Speed", Mathf.Abs(xMove));
+        MyAnimator.SetBool("IsJumping", isJumping);
+        MyAnimator.SetBool("IsPuddle", isPuddle);
+        MyAnimator.SetBool("IsSquare", isSquare);
+        MyAnimator.SetBool("IsTriangle", isTriangle);
+        MyAnimator.SetBool("IsRhombus", isRhombus);
+        isJumping = !isGrounded();
     }
 
     private bool isGrounded()
     {
         float extraHeightText = 0.3f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, new Vector2(1, 1), 0f, Vector2.down, extraHeightText, platformLayerMask);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, 0.1f, platformLayerMask);
         Color rayColor;
         if (raycastHit.collider != null)
         {
@@ -335,6 +387,7 @@ public class BlobBehavior : MonoBehaviour
 
         if (collision.gameObject.tag == "Spawn")
         {
+            AudioSource.PlayClipAtPoint(RhombusTrigger, Camera.main.transform.position, 2f);
             Vector2 RhombusHordePos = new Vector2(SpawnLocation.position.x, SpawnLocation.position.y);
 
             for (int i = 0; i < 1; i++)
@@ -349,6 +402,7 @@ public class BlobBehavior : MonoBehaviour
 
         if (collision.gameObject.tag == "ParaSpawn")
         {
+            AudioSource.PlayClipAtPoint(ParaSquareSpawn, Camera.main.transform.position, 2f);
             Vector2 ParaSquarePos = new Vector2(ParaSpawnLocation.position.x, ParaSpawnLocation.position.y);
 
             for (int i = 0; i < 1; i++)

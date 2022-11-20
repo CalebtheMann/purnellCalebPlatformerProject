@@ -2583,6 +2583,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5336496257573241520, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
   m_PrefabInstance: {fileID: 1798465793}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &992292325 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1109337895480354837, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
+  m_PrefabInstance: {fileID: 1798465793}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1008229394
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4673,6 +4678,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1109337895480354837, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3744895a820d2784bb7d8eb23c4c3e88, type: 2}
     - target: {fileID: 5336496257573241520, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: m_RootOrder
       value: 44
@@ -4721,6 +4730,10 @@ PrefabInstance:
       propertyPath: LoseScreen
       value: 
       objectReference: {fileID: 1758136480}
+    - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
+      propertyPath: MyAnimator
+      value: 
+      objectReference: {fileID: 992292325}
     - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: CheckPoint.x
       value: 46.5458

@@ -10,6 +10,7 @@ public class KingCubeCode : MonoBehaviour
     public GameObject MinionSpawn;
     public GameObject SquareHorde;
     public GameObject KingCubePortrait;
+    public AudioClip EndVictory;
 
     // public EnemyBehavior EnemyBehavior;
     bool facingRight = true;
@@ -17,7 +18,7 @@ public class KingCubeCode : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("spawnMinions", 1f, 2f);
+        InvokeRepeating("spawnMinions", 1f, 2.3f);
     }
 
     // Update is called once per frame
@@ -34,6 +35,7 @@ public class KingCubeCode : MonoBehaviour
         {
             Destroy(gameObject);
             KingCubePortrait.SetActive(true);
+            AudioSource.PlayClipAtPoint(EndVictory, Camera.main.transform.position, 1f);
         }
 
         if (Lives == 2)

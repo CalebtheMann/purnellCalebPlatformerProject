@@ -10936,9 +10936,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1400894393}
     - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
+      propertyPath: RhombusTrigger
+      value: 
+      objectReference: {fileID: 8300000, guid: ed23f762caa02d24891ba47726a567bd, type: 3}
+    - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: SquareUnlocked
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
+      propertyPath: ParaSquareSpawn
+      value: 
+      objectReference: {fileID: 8300000, guid: 4ef64f7406b5f4c43a827c593a2857e0, type: 3}
     - target: {fileID: 5336496257573241524, guid: 99d6f1d09b0df0d46a9dc8897b78130c, type: 3}
       propertyPath: RhombusUnlocked
       value: 0
