@@ -77,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 389251285
-  m_SortingLayer: 2
+  m_SortingLayerID: 188623417
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7b1c1d9e983a71c4fa5a752754c674c9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -126,9 +126,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Lives: 5
   Speed: 6
+  boxCastWidth: 0
   Jump: {x: 0, y: 350}
-  SquareUnlocked: 1
-  TriangleUnlocked: 1
+  SquareUnlocked: 0
+  TriangleUnlocked: 0
   RhombusUnlocked: 1
   BulletSpawnLocation: {fileID: 5336496258048506424}
   SpawnLocation: {fileID: 0}
@@ -136,7 +137,7 @@ MonoBehaviour:
   KingCubeLocation: {fileID: 0}
   Movement: {fileID: 8300000, guid: 9a51db40082dc44478ac6003e4fe8936, type: 3}
   SpriteRenderer: {fileID: 0}
-  BlobCollider: {fileID: 0}
+  BlobCollider: {fileID: 5336496257573241522}
   Blob: {fileID: 21300000, guid: b857941e994845b49858c788df3f0822, type: 3}
   BlobPuddle: {fileID: 21300000, guid: 86353712c8a8b3f4489b018a317b19df, type: 3}
   Square: {fileID: 21300000, guid: 93f5c2a03fc222d449e83718bfec953f, type: 3}
@@ -144,17 +145,18 @@ MonoBehaviour:
   TriangleAttack: {fileID: 844406720415069546, guid: 2a6eb0a5f03593e41982e52838e43caf, type: 3}
   LoseScreen: {fileID: 0}
   WinScreen: {fileID: 0}
-  RhombusHorde: {fileID: 0}
-  ParaSquares: {fileID: 0}
+  RhombusHorde: {fileID: 6534047335260164738, guid: dd13f5f56c05f1c4ba6123a8a6c72fef, type: 3}
+  ParaSquares: {fileID: 6992871714818095637, guid: 6d33cdf94e7c40747924daf90aa687c6, type: 3}
   KingCube: {fileID: 0}
   Rhombus: {fileID: 21300000, guid: f17c84c4fc66bf549b17f481150b0a17, type: 3}
   Collider: {fileID: 5336496257573241522}
   BlobSize: {x: 0, y: 0}
   PuddleSize: {x: 6.296843, y: 1.16}
   SquareSize: {x: 9, y: 7.2}
+  BoxCastSize: {x: 0, y: 0}
   TriangleSize: {x: 3.312905, y: 3.391538}
-  RhombusSize: {x: 2, y: 1.5}
-  CheckPoint: {x: 92, y: 1.78, z: 0}
+  RhombusSize: {x: 3.4531, y: 3.9306}
+  CheckPoint: {x: 66.57, y: -0.2, z: 0}
   FallingDeath: {fileID: 8300000, guid: 32f9d64d666fb754fb7c2c1647c2849b, type: 3}
   JumpSound: {fileID: 8300000, guid: c39a3c6277a4da74c8b35f466d847405, type: 3}
   ShapeUp: {fileID: 8300000, guid: 7055176ec47e19744b05cc63022ec550, type: 3}
@@ -164,8 +166,8 @@ MonoBehaviour:
   BlobKill: {fileID: 8300000, guid: 8916ce5f21bf3584aa4e3e4875be0a89, type: 3}
   CheckPointSound: {fileID: 8300000, guid: b997606d89bca0e40954559e98c6a757, type: 3}
   MorphSound: {fileID: 8300000, guid: d61fe0e763651b04dacf47a6c9e05e1c, type: 3}
-  ParaSquareSpawn: {fileID: 0}
-  RhombusTrigger: {fileID: 0}
+  ParaSquareSpawn: {fileID: 8300000, guid: 4ef64f7406b5f4c43a827c593a2857e0, type: 3}
+  RhombusTrigger: {fileID: 8300000, guid: ed23f762caa02d24891ba47726a567bd, type: 3}
   MyAnimator: {fileID: 1109337895480354837}
   platformLayerMask:
     serializedVersion: 2

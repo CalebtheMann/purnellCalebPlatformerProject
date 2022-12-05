@@ -7,6 +7,7 @@ public class BlobBehavior : MonoBehaviour
 {
     public int Lives = 5;
     public float Speed = 10;
+    [SerializeField] float boxCastWidth;
     private Rigidbody2D rb2d;
     private BoxCollider2D boxCollider2d;
     public Vector2 Jump = new Vector2(0, 300);
@@ -127,17 +128,15 @@ public class BlobBehavior : MonoBehaviour
             Speed = 6.0f;
             Jump = new Vector2(0, 500);
             CurrentShape = Shapes.Blob;
+            isSquare = false;
+            isTriangle = false;
+            isRhombus = false;
         }
 
         if (collision.collider.tag == "Tutorial")
         {
             Destroy(gameObject);
             Tutorial();
-        }
-
-        if (collision.collider.tag == "VictoryPlatform")
-        {
-            AudioSource.PlayClipAtPoint(Victory, Camera.main.transform.position, 2f);
         }
 
         /* if (collision.collider.tag == "Bullet")
@@ -231,6 +230,7 @@ public class BlobBehavior : MonoBehaviour
             isSquare = false;
             isTriangle = false;
             isRhombus = false;
+            isPuddle = false;
         }
 
         if (Input.GetKeyDown(KeyCode.J) && SquareUnlocked == true)
@@ -249,6 +249,7 @@ public class BlobBehavior : MonoBehaviour
             isSquare = true;
             isTriangle = false;
             isRhombus = false;
+            isPuddle = false;
         }
         
         if (Input.GetKeyDown(KeyCode.K) && TriangleUnlocked == true)
@@ -267,6 +268,7 @@ public class BlobBehavior : MonoBehaviour
             isSquare = false;
             isTriangle = true;
             isRhombus = false;
+            isPuddle = false;
         }
 
         if (Input.GetKeyDown(KeyCode.L) && RhombusUnlocked == true)
@@ -279,12 +281,13 @@ public class BlobBehavior : MonoBehaviour
             SpriteRenderer.sprite = Rhombus;
             Collider.size = RhombusSize;
             BoxCastSize = RhombusSize;
-            Speed = 8.5f;
-            Jump = new Vector2(0, 350);
+            Speed = 10f;
+            Jump = new Vector2(0, 450);
             CurrentShape = Shapes.Rhombus;
             isSquare = false;
             isTriangle = false;
             isRhombus = true;
+            isPuddle = false;
         }
 
         if (CurrentShape == Shapes.Triangle)
@@ -299,28 +302,20 @@ public class BlobBehavior : MonoBehaviour
                 }
             }
         }
+
+        isJumping = !isGrounded();
         MyAnimator.SetFloat("Speed", Mathf.Abs(xMove));
         MyAnimator.SetBool("IsJumping", isJumping);
         MyAnimator.SetBool("IsPuddle", isPuddle);
         MyAnimator.SetBool("IsSquare", isSquare);
         MyAnimator.SetBool("IsTriangle", isTriangle);
         MyAnimator.SetBool("IsRhombus", isRhombus);
-        isJumping = !isGrounded();
     }
 
     private bool isGrounded()
     {
-        float extraHeightText = 0.3f;
-        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCollider2d.bounds.size, 0f, Vector2.down, 0.1f, platformLayerMask);
-        Color rayColor;
-        if (raycastHit.collider != null)
-        {
-            rayColor = Color.blue;
-        }
-        else
-        {
-            rayColor = Color.red;
-        }
+        Vector2 boxCastSize = new Vector2 (boxCollider2d.bounds.size.x * boxCastWidth, boxCollider2d.bounds.size.y);
+        RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider2d.bounds.center, boxCastSize, 0f, Vector2.down, 0.1f, platformLayerMask);
         return raycastHit.collider != null;
     }
     void Flip()
@@ -400,6 +395,11 @@ public class BlobBehavior : MonoBehaviour
             }
         }
 
+        if (collision.gameObject.tag == "VictoryPlatform")
+        {
+            AudioSource.PlayClipAtPoint(Victory, Camera.main.transform.position, 2f);
+        }
+
         if (collision.gameObject.tag == "ParaSpawn")
         {
             AudioSource.PlayClipAtPoint(ParaSquareSpawn, Camera.main.transform.position, 2f);
@@ -411,7 +411,13 @@ public class BlobBehavior : MonoBehaviour
                 {
                     ParaSquarePos.x = ParaSpawnLocation.position.x + ((j + 0.5f) * 2f);
                     Instantiate(ParaSquares, ParaSquarePos, Quaternion.identity);
+                    StartCoroutine(waiter());
                 }
+            }
+            IEnumerator waiter()
+            {
+                yield return new WaitForSeconds(10);
+                Destroy(ParaSquares);
             }
         }
     }

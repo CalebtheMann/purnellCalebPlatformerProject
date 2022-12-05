@@ -45,6 +45,11 @@ public class TriangleAttack : MonoBehaviour
             AudioSource.PlayClipAtPoint(TriangleKill, transform.position, 1f);
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.tag == "Bullet")
+        {
+            GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezeAll; 
+        }
     }
 
     IEnumerator waiter()
