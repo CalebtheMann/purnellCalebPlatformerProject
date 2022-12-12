@@ -59,5 +59,10 @@ public class EnemyBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.tag == "Boundary")
+        {
+            Destroy(gameObject);
+        }
     }
 }

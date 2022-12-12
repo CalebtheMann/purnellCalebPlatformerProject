@@ -91,6 +91,7 @@ public class BlobBehavior : MonoBehaviour
             IsJumping = false;
         }
        */
+
         if (collision.collider.tag == "Enemy")
         {
             Destroy(gameObject);
@@ -102,6 +103,12 @@ public class BlobBehavior : MonoBehaviour
         {
             Destroy(gameObject);
             AudioSource.PlayClipAtPoint(BlobKill, transform.position, 1f);
+            RestartGame();
+        }
+
+        if (collision.collider.tag == "Boundary")
+        {
+            Destroy(gameObject);
             RestartGame();
         }
 
@@ -350,7 +357,7 @@ public class BlobBehavior : MonoBehaviour
 
         if (collision.gameObject.tag == "Falling")
         {
-            AudioSource.PlayClipAtPoint(FallingDeath, Camera.main.transform.position, 3f);
+            AudioSource.PlayClipAtPoint(FallingDeath, Camera.main.transform.position, 2f);
             Speed = 0;
         }
 
@@ -410,14 +417,8 @@ public class BlobBehavior : MonoBehaviour
                 for (int j = 0; j < 12; j++)
                 {
                     ParaSquarePos.x = ParaSpawnLocation.position.x + ((j + 0.5f) * 2f);
-                    Instantiate(ParaSquares, ParaSquarePos, Quaternion.identity);
-                    StartCoroutine(waiter());
+                    Instantiate(ParaSquares, ParaSquarePos, Quaternion.identity);      
                 }
-            }
-            IEnumerator waiter()
-            {
-                yield return new WaitForSeconds(10);
-                Destroy(ParaSquares);
             }
         }
     }
