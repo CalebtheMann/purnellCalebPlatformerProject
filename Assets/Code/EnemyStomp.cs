@@ -25,7 +25,7 @@ public class EnemyStomp : MonoBehaviour
         if (collision.gameObject.tag == "Weak Point")
         {
             rb2d.velocity = Vector2.zero;
-            rb2d.AddForce(Jump);
+            rb2d.AddForce(Jump*2.5f);
             AudioSource.PlayClipAtPoint(SquareKill, transform.position, 1f);
             Destroy(collision.transform.parent.gameObject);
         }
